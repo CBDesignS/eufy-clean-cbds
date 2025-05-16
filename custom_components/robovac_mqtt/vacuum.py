@@ -39,6 +39,9 @@ async def async_setup_entry(
         entity = RoboVacMQTTEntity(device)
         hass.data[DOMAIN][VACS][device.device_id] = entity
         async_add_entities([entity])
+        # Create and add battery sensor entity
+        battery_sensor = RobovacBatterySensor(device)
+        async_add_entities([battery_sensor])
         await entity.pushed_update_handler()
 
 
@@ -160,4 +163,3 @@ class RoboVacMQTTEntity(StateVacuumEntity):
                 await self.vacuum.room_clean(rooms)
         else:
             raise NotImplementedError()
-
