@@ -55,7 +55,7 @@ class RobovacBatterySensor(Entity):
 
     @property
     def name(self):
-        return f"{self.robovac.name} Battery Level"
+        return f"{self.robovac.device_model_desc} Battery Level"
 
     @property
     def state(self):
