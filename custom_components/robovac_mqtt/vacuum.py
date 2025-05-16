@@ -57,15 +57,15 @@ class RobovacBatterySensor(Entity):
     def name(self):
         return f"{self.robovac.device_model_desc} Battery Level"
 
-  @property
-  async def async_update(self):
-      """Fetch the latest battery level from the vacuum."""
-      self._attr_state = await self.robovac.get_battery_level()
+    @property
+    async def async_update(self):
+        """Fetch the latest battery level from the vacuum."""
+        self._attr_state = await self.robovac.get_battery_level()
 
-  @property
-  def state(self):
-      """Return the stored battery level."""
-      return self._attr_state
+    @property
+    def state(self):
+        """Return the stored battery level."""
+        return self._attr_state
 
     @property
     def unit_of_measurement(self):
