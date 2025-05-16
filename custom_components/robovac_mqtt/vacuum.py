@@ -8,6 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .constants.hass import DOMAIN, VACS
@@ -43,6 +44,35 @@ async def async_setup_entry(
         battery_sensor = RobovacBatterySensor(device)
         async_add_entities([battery_sensor])
         await entity.pushed_update_handler()
+
+class RobovacBatterySensor(Entity):
+    """Battery level sensor for Robovac."""
+
+    def __init__(self, robovac):
+        """Initialize the battery sensor."""
+        self.robovac = robovac
+        self._attr_unique_id = f"{robovac.device_id}_battery"
+
+    @property
+    def name(self):
+        return f"{self.robovac.name} Battery Level"
+
+    @property
+    def state(self):
+        """Return the current battery level."""
+        return self.robovac.get_battery_level()
+
+    @property
+    def unit_of_measurement(self):
+        return "%"
+
+    @property
+    def device_class(self):
+        return "battery"
+
+    def update(self):
+        """Fetch the latest data."""
+        self.robovac.update()
 
 
 class RoboVacMQTTEntity(StateVacuumEntity):
