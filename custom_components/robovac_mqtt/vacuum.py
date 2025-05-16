@@ -73,7 +73,12 @@ class RoboVacMQTTEntity(StateVacuumEntity):
     @property
     def activity(self) -> VacuumActivity:
         return self._state
-
+        @property
+      
+    def battery_level(self) -> int:
+    """Return the battery level of the vacuum."""
+        return self._attr_battery_level
+  
     @property
     def supported_features(self) -> VacuumEntityFeature:
         """Flag supported features."""
