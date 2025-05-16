@@ -73,7 +73,7 @@ class RobovacBatterySensor(Entity):
     def update(self):
         """Fetch the latest data."""
         if hasattr(self.robovac, "refresh_data"):
-    self.robovac.refresh_data()
+            self.robovac.refresh_data()
 
 
 class RoboVacMQTTEntity(StateVacuumEntity):
