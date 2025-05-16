@@ -76,7 +76,7 @@ class RoboVacMQTTEntity(StateVacuumEntity):
 
     @property
     def battery_level(self) -> int:
-    """Return the battery level of the vacuum."""
+        """Return the battery level of the vacuum."""
         return self._attr_battery_level
 
     @property
