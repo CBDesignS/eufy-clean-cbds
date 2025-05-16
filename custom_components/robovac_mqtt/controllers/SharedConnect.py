@@ -6,12 +6,12 @@ from homeassistant.components.vacuum import VacuumActivity
 
 from ..constants.devices import EUFY_CLEAN_DEVICES
 from ..constants.state import (EUFY_CLEAN_CLEAN_SPEED, EUFY_CLEAN_CONTROL,
-                               EUFY_CLEAN_NOVEL_CLEAN_SPEED)
+                                EUFY_CLEAN_NOVEL_CLEAN_SPEED)
 from ..proto.cloud.clean_param_pb2 import (CleanExtent, CleanParamRequest,
-                                           CleanParamResponse, CleanType,
-                                           MopMode)
+                                            CleanParamResponse, CleanType,
+                                            MopMode)
 from ..proto.cloud.control_pb2 import (ModeCtrlRequest, ModeCtrlResponse,
-                                       SelectRoomsClean)
+                                        SelectRoomsClean)
 from ..proto.cloud.error_code_pb2 import ErrorCode
 from ..proto.cloud.work_status_pb2 import WorkStatus
 from ..utils import decode, encode, encode_message
@@ -55,14 +55,14 @@ class SharedConnect(Base):
     async def get_robovac_data(self):
         return self.robovac_data
 
- 	async def get_clean_speed(self):
-	     if isinstance(self.robovac_data.get('CLEAN_SPEED'), list) and len(self.robovac_data['CLEAN_SPEED']) == 1:
-	         speed = int(self.robovac_data['CLEAN_SPEED'])
-	         return str(EUFY_CLEAN_NOVEL_CLEAN_SPEED[speed]).lower()
-	     elif isinstance(self.robovac_data.get('CLEAN_SPEED'), str) and self.robovac_data['CLEAN_SPEED'].isdigit():
-	         speed = int(self.robovac_data['CLEAN_SPEED'])
-	         return str(EUFY_CLEAN_NOVEL_CLEAN_SPEED[speed]).lower()
-	     return str(self.robovac_data.get('CLEAN_SPEED', 'standard')).lower()
+    async def get_clean_speed(self):
+        if isinstance(self.robovac_data.get('CLEAN_SPEED'), list) and len(self.robovac_data['CLEAN_SPEED']) == 1:
+            speed = int(self.robovac_data['CLEAN_SPEED'])
+            return str(EUFY_CLEAN_NOVEL_CLEAN_SPEED[speed]).lower()
+        elif isinstance(self.robovac_data.get('CLEAN_SPEED'), str) and self.robovac_data['CLEAN_SPEED'].isdigit():
+            speed = int(self.robovac_data['CLEAN_SPEED'])
+            return str(EUFY_CLEAN_NOVEL_CLEAN_SPEED[speed]).lower()
+        return str(self.robovac_data.get('CLEAN_SPEED', 'standard')).lower()
 
     async def get_control_response(self) -> ModeCtrlResponse | None:
         try:
