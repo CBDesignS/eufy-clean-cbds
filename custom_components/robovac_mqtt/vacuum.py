@@ -80,6 +80,13 @@ class RoboVacMQTTEntity(StateVacuumEntity):
         return self._attr_battery_level
 
     @property
+    def extra_state_attributes(self) -> dict:
+        """Return additional attributes."""
+        return {
+            "battery_level": self._attr_battery_level,  # Explicitly expose battery level
+        }
+
+    @property
     def supported_features(self) -> VacuumEntityFeature:
         """Flag supported features."""
         supported_features = (
@@ -153,3 +160,4 @@ class RoboVacMQTTEntity(StateVacuumEntity):
                 await self.vacuum.room_clean(rooms)
         else:
             raise NotImplementedError()
+
